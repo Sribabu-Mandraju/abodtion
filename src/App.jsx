@@ -368,6 +368,16 @@ const App = () => {
               transition={{ duration: 1, delay: 0.3 }}
             >
               <div className="trailer-wrapper">
+                <div className="trailer-overlay">
+                  <button
+                    className="play-button"
+                    onClick={() =>
+                      (document.querySelector(".trailer").src += "?autoplay=1")
+                    }
+                  >
+                    <FaPlay size={24} />
+                  </button>
+                </div>
                 <iframe
                   src="https://www.youtube.com/embed/tebO-nuY3PQ"
                   title="Game Trailer"
@@ -376,7 +386,7 @@ const App = () => {
                   className="trailer"
                 ></iframe>
               </div>
-              <div className="cta-buttons">
+              {/* <div className="cta-buttons">
                 <a
                   href="#download"
                   className="btn btn-primary"
@@ -388,7 +398,7 @@ const App = () => {
                   <FaDownload /> Download Now
                 </a>
                 <p className="price-info">Name your own price</p>
-              </div>
+              </div> */}
             </motion.div>
           </div>
 
@@ -417,36 +427,54 @@ const App = () => {
                 className="feature-text"
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.6 }}
               >
                 <div className="feature-quote">
-                  <p>
+                  <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                  >
                     The incidents require you to move out.
                     <br />
                     Let's start unpacking stuff and cozy up our new abode!
-                  </p>
+                  </motion.p>
                 </div>
-                <p className="feature-description">
+                <motion.p
+                  className="feature-description"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                >
                   <strong>Abodtion</strong> is a short first-person
                   psychological game about what remains when something is lost
                   before it begins.
-                </p>
-                <p className="feature-description">
+                </motion.p>
+                <motion.p
+                  className="feature-description"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                >
                   Every action feels normal —until it doesn't.
                   <br />
                   Every reflection looks familiar —until it blinks.
                   <br />
                   Every sound is real —even if no one is there.
-                </p>
+                </motion.p>
               </motion.div>
 
               <motion.div
                 className="feature-image"
                 initial={{ opacity: 0, x: 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.6 }}
+                whileHover={{ scale: 1.02 }}
               >
                 <img
                   src={staticImages.feature1 || "/placeholder.svg"}
@@ -551,7 +579,7 @@ const App = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <h3>Credits</h3>
+              {/* <h3>Credits</h3>
               <div className="credits-grid">
                 <div className="credit-item">
                   <div className="credit-role">Idea, Art, Code</div>
@@ -567,7 +595,7 @@ const App = () => {
                     <a href="mailto:work@koro.games">work@koro.games</a>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               <div className="warning-box">
                 <div className="warning-icon-container">
@@ -743,29 +771,36 @@ const App = () => {
                   className="screenshot-item"
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
+                  viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={{ scale: 1.05 }}
                   onClick={() => openGallery(screenshot)}
                 >
                   <div className="screenshot-overlay">
                     <FaPlay className="view-icon" />
+                    <span className="screenshot-number">
+                      {index + 1}/{featuredScreenshots.length}
+                    </span>
                   </div>
                   <img
                     src={screenshot || "/placeholder.svg"}
                     alt={`Game Screenshot ${index + 1}`}
                     className="screenshot-img"
+                    loading="lazy"
                   />
                 </motion.div>
               ))}
             </div>
 
             <div className="view-all-container">
-              <button
+              <motion.button
                 className="btn"
                 onClick={() => openGallery(galleryScreenshots[0])}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 View All Screenshots
-              </button>
+              </motion.button>
             </div>
           </div>
         </section>
@@ -776,10 +811,10 @@ const App = () => {
           className="download-section"
         >
           <div className="container">
-            <div className="section-header">
+            {/* <div className="section-header">
               <h2>Download Now</h2>
               <div className="section-divider"></div>
-            </div>
+            </div> */}
 
             <motion.div
               className="download-card"
@@ -818,9 +853,9 @@ const App = () => {
               </div>
 
               <div className="download-actions">
-                <a href="#" className="btn btn-primary btn-large">
+                {/* <a href="#" className="btn btn-primary btn-large">
                   <FaDownload /> Download Now
-                </a>
+                </a> */}
                 <div className="price-container">
                   <p className="price-info">Name your own price</p>
                   <div className="price-options">
@@ -1045,7 +1080,7 @@ const App = () => {
                   is lost before it begins.
                 </p>
               </div>
-              <div className="cta-actions">
+              {/* <div className="cta-actions">
                 <a
                   href="#download"
                   className="btn btn-primary btn-large"
@@ -1070,13 +1105,13 @@ const App = () => {
                     </button>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </motion.div>
           </div>
         </section>
       </main>
 
-      <footer className="footer">
+      {/* <footer className="footer">
         <div className="container">
           <div className="footer-grid">
             <div className="footer-brand">
@@ -1160,33 +1195,75 @@ const App = () => {
             </div>
           </div>
         </div>
-      </footer>
+      </footer> */}
 
       {/* Image Gallery Modal */}
       {showGalleryModal && (
-        <div className="gallery-modal">
-          <div className="gallery-overlay" onClick={closeGallery}></div>
-          <div className="gallery-content">
-            <button className="gallery-close" onClick={closeGallery}>
+        <motion.div
+          className="gallery-modal"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <motion.div
+            className="gallery-overlay"
+            onClick={closeGallery}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          ></motion.div>
+          <motion.div
+            className="gallery-content"
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+          >
+            <motion.button
+              className="gallery-close"
+              onClick={closeGallery}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
               <BiX size={24} />
-            </button>
+            </motion.button>
             <div className="gallery-image-container">
-              <img
+              <motion.img
+                key={selectedImage}
                 src={selectedImage || "/placeholder.svg"}
                 alt="Gallery Image"
                 className="gallery-image"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.3 }}
               />
             </div>
             <div className="gallery-controls">
-              <button className="gallery-nav gallery-prev" onClick={prevImage}>
+              <motion.button
+                className="gallery-nav gallery-prev"
+                onClick={prevImage}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
                 &lt;
-              </button>
-              <button className="gallery-nav gallery-next" onClick={nextImage}>
+              </motion.button>
+              <motion.button
+                className="gallery-nav gallery-next"
+                onClick={nextImage}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
                 &gt;
-              </button>
+              </motion.button>
             </div>
-          </div>
-        </div>
+            <div className="gallery-info">
+              <span className="gallery-counter">
+                {galleryScreenshots.indexOf(selectedImage) + 1} /{" "}
+                {galleryScreenshots.length}
+              </span>
+            </div>
+          </motion.div>
+        </motion.div>
       )}
     </div>
   );
