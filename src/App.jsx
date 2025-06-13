@@ -789,17 +789,23 @@ const App = () => {
                     }
 
                     .controls-table tr {
-                      margin-bottom: 15px;
+                      margin-bottom: 25px;
                       border: 1px solid rgba(255, 255, 255, 0.1);
                       border-radius: 8px;
                       background: rgba(255, 255, 255, 0.02);
+                      padding: 5px;
                     }
 
                     .controls-table td {
                       text-align: right;
-                      padding: 12px 15px;
+                      padding: 15px;
                       position: relative;
                       padding-left: 50%;
+                      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                    }
+
+                    .controls-table td:last-child {
+                      border-bottom: none;
                     }
 
                     .controls-table td::before {
@@ -824,8 +830,12 @@ const App = () => {
                   }
 
                   @media (max-width: 480px) {
+                    .controls-table tr {
+                      margin-bottom: 20px;
+                    }
+
                     .controls-table td {
-                      padding: 10px 12px;
+                      padding: 12px;
                       padding-left: 45%;
                     }
 
