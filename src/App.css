@@ -24,7 +24,7 @@
   --text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-body {  
+body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-color: var(--bg-color);
   color: var(--text-color);
@@ -55,6 +55,7 @@ a:hover {
 img {
   max-width: 100%;
   height: auto;
+  transition: none;
 }
 
 /* Header styles */
@@ -202,6 +203,7 @@ img {
 .hero-text {
   max-width: 800px;
   margin: 0 auto 40px;
+  opacity: 1;
 }
 
 .hero-tagline {
@@ -214,6 +216,7 @@ img {
   -webkit-text-fill-color: transparent;
   text-shadow: var(--text-shadow);
   color: var(--text-color);
+  opacity: 1;
 }
 
 .rating {
@@ -701,11 +704,10 @@ blockquote {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
 }
 
 .screenshot:hover img {
-  transform: scale(1.05);
+  transform: none;
 }
 
 .user-actions {
@@ -907,13 +909,13 @@ blockquote {
 .embed_preload {
   border: none;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out;
+  transition: none;
   border-radius: 4px;
   overflow: hidden;
 }
 
 .embed_preload:hover {
-  transform: scale(1.02);
+  transform: none;
 }
 
 .video_preload {
@@ -934,8 +936,8 @@ blockquote {
   background-size: 24px;
   background-position: center;
   background-repeat: no-repeat;
-  opacity: 0;
-  transition: opacity 0.2s ease-in-out;
+  opacity: 1;
+  transition: none;
 }
 
 .video_preload:hover::after {
@@ -998,11 +1000,9 @@ blockquote {
   border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
-  transition: var(--transition-base);
 }
 
 .screenshot-item:hover {
-  transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
 
@@ -1017,7 +1017,6 @@ blockquote {
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transition: var(--transition-base);
 }
 
 .screenshot-item:hover .screenshot-overlay {
@@ -1059,6 +1058,7 @@ blockquote {
   object-fit: contain;
   border-radius: 8px;
   box-shadow: var(--shadow-lg);
+  transition: none;
 }
 
 /* Footer styles */
@@ -1197,4 +1197,106 @@ blockquote {
 .credit-name {
   color: var(--text-color-secondary);
   text-shadow: var(--text-shadow);
+}
+
+/* Remove image transition effects */
+.screenshot-item {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.screenshot-item:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.screenshot-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+}
+
+.screenshot-item:hover .screenshot-overlay {
+  opacity: 1;
+}
+
+/* Remove image animations */
+.hero-text,
+.feature-text,
+.screenshot-item {
+  opacity: 1;
+}
+
+/* Remove image transitions */
+img {
+  max-width: 100%;
+  height: auto;
+  transition: none;
+}
+
+/* Remove hover effects on images */
+.screenshot:hover img,
+.video-thumbnail:hover img,
+.embed_preload:hover {
+  transform: none;
+}
+
+/* Remove video preload animations */
+.video_preload::after {
+  opacity: 1;
+  transition: none;
+}
+
+.video_preload:hover::after {
+  opacity: 1;
+}
+
+/* Remove gallery image transitions */
+.gallery-image {
+  max-width: 100%;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: var(--shadow-lg);
+  transition: none;
+}
+
+/* Remove feature image transitions */
+.feature-img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  transition: none;
+}
+
+/* Remove comment media transitions */
+.comment-media img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  transition: none;
+}
+
+/* Remove devlog image transitions */
+.devlog-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  transition: none;
+}
+
+/* Remove download image transitions */
+.download-img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  transition: none;
 }

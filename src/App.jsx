@@ -10,7 +10,7 @@ import {
   FaChevronUp,
   FaPlay,
   FaDownload,
-  FaExclamationTriangle
+  FaExclamationTriangle,
 } from "react-icons/fa";
 import { BiDownload, BiComment, BiNews, BiMenu, BiX } from "react-icons/bi";
 import { motion, AnimatePresence } from "framer-motion";
@@ -49,40 +49,64 @@ const App = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
-  
+
   const sectionRefs = {
     hero: useRef(null),
     features: useRef(null),
     screenshots: useRef(null),
     download: useRef(null),
-    comments: useRef(null)
+    comments: useRef(null),
   };
 
   // All thumbnails in an array for easy access
   const allThumbnails = [
-    thumbnail1, thumbnail2, thumbnail3, thumbnail4, thumbnail5, thumbnail6, 
-    thumbnail7, thumbnail8, thumbnail9, thumbnail10, thumbnail11, thumbnail12,
-    thumbnail13, thumbnail14, thumbnail15, thumbnail16, thumbnail17, thumbnail18,
-    thumbnail19, thumbnail20, thumbnail21, thumbnail22
+    thumbnail1,
+    thumbnail2,
+    thumbnail3,
+    thumbnail4,
+    thumbnail5,
+    thumbnail6,
+    thumbnail7,
+    thumbnail8,
+    thumbnail9,
+    thumbnail10,
+    thumbnail11,
+    thumbnail12,
+    thumbnail13,
+    thumbnail14,
+    thumbnail15,
+    thumbnail16,
+    thumbnail17,
+    thumbnail18,
+    thumbnail19,
+    thumbnail20,
+    thumbnail21,
+    thumbnail22,
   ];
 
-  // Shuffle thumbnails for random display
-  const shuffleThumbnails = (array) => {
-    const shuffled = [...array];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled;
+  // Select single static images for each section
+  const staticImages = {
+    feature1: thumbnail1,
+    feature2: thumbnail2,
+    download: thumbnail3,
+    devlog1: thumbnail4,
+    devlog2: thumbnail5,
+    comment1: thumbnail6,
+    comment2: thumbnail7,
   };
 
-  const shuffledThumbnails = shuffleThumbnails(allThumbnails);
-  
-  // Featured screenshots (first 6 from shuffled array)
-  const featuredScreenshots = shuffledThumbnails.slice(0, 6);
-  
-  // Gallery screenshots (all thumbnails)
-  const galleryScreenshots = shuffledThumbnails;
+  // Featured screenshots (first 6 static images)
+  const featuredScreenshots = [
+    thumbnail8,
+    thumbnail9,
+    thumbnail10,
+    thumbnail11,
+    thumbnail12,
+    thumbnail13,
+  ];
+
+  // Gallery screenshots (all static images)
+  const galleryScreenshots = allThumbnails;
 
   useEffect(() => {
     const handleResize = () => {
@@ -95,9 +119,15 @@ const App = () => {
     const handleScroll = () => {
       const position = window.scrollY;
       setScrollPosition(position);
-      
+
       // Determine active section based on scroll position
-      const sections = ["hero", "features", "screenshots", "download", "comments"];
+      const sections = [
+        "hero",
+        "features",
+        "screenshots",
+        "download",
+        "comments",
+      ];
       for (const section of sections) {
         const element = sectionRefs[section].current;
         if (element) {
@@ -112,7 +142,7 @@ const App = () => {
 
     window.addEventListener("resize", handleResize);
     window.addEventListener("scroll", handleScroll);
-    
+
     return () => {
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("scroll", handleScroll);
@@ -142,7 +172,9 @@ const App = () => {
 
   const prevImage = () => {
     const currentIndex = galleryScreenshots.indexOf(selectedImage);
-    const prevIndex = (currentIndex - 1 + galleryScreenshots.length) % galleryScreenshots.length;
+    const prevIndex =
+      (currentIndex - 1 + galleryScreenshots.length) %
+      galleryScreenshots.length;
     setSelectedImage(galleryScreenshots[prevIndex]);
   };
 
@@ -155,7 +187,7 @@ const App = () => {
     if (section) {
       window.scrollTo({
         top: section.offsetTop - 80,
-        behavior: "smooth"
+        behavior: "smooth",
       });
     }
     if (isMenuOpen) {
@@ -165,50 +197,75 @@ const App = () => {
 
   return (
     <div className="app dark-theme">
-      <header className={`header ${scrollPosition > 50 ? "header-scrolled" : ""}`}>
+      <header
+        className={`header ${scrollPosition > 50 ? "header-scrolled" : ""}`}
+      >
         <div className="header-container">
           <div className="logo-container">
-            <img src={logoText || "/placeholder.svg"} alt="Game Logo" className="logo" />
+            <img
+              src={logoText || "/placeholder.svg"}
+              alt="Game Logo"
+              className="logo"
+            />
             <h1 className="game-title">Abodtion</h1>
           </div>
           {isMobile ? (
-            <button className="menu-toggle" onClick={toggleMenu} aria-label="Toggle menu">
+            <button
+              className="menu-toggle"
+              onClick={toggleMenu}
+              aria-label="Toggle menu"
+            >
               {isMenuOpen ? <BiX size={28} /> : <BiMenu size={28} />}
             </button>
           ) : (
             <nav className="nav-desktop">
-              <a 
-                href="#hero" 
-                className={activeSection === "hero" ? "active" : ""} 
-                onClick={(e) => { e.preventDefault(); scrollToSection("hero"); }}
+              <a
+                href="#hero"
+                className={activeSection === "hero" ? "active" : ""}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection("hero");
+                }}
               >
                 Home
               </a>
-              <a 
-                href="#features" 
-                className={activeSection === "features" ? "active" : ""} 
-                onClick={(e) => { e.preventDefault(); scrollToSection("features"); }}
+              <a
+                href="#features"
+                className={activeSection === "features" ? "active" : ""}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection("features");
+                }}
               >
                 Features
               </a>
-              <a 
-                href="#screenshots" 
-                className={activeSection === "screenshots" ? "active" : ""} 
-                onClick={(e) => { e.preventDefault(); scrollToSection("screenshots"); }}
+              <a
+                href="#screenshots"
+                className={activeSection === "screenshots" ? "active" : ""}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection("screenshots");
+                }}
               >
                 Screenshots
               </a>
-              <a 
-                href="#download" 
-                className={activeSection === "download" ? "active" : ""} 
-                onClick={(e) => { e.preventDefault(); scrollToSection("download"); }}
+              <a
+                href="#download"
+                className={activeSection === "download" ? "active" : ""}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection("download");
+                }}
               >
                 Download
               </a>
-              <a 
-                href="#comments" 
-                className={activeSection === "comments" ? "active" : ""} 
-                onClick={(e) => { e.preventDefault(); scrollToSection("comments"); }}
+              <a
+                href="#comments"
+                className={activeSection === "comments" ? "active" : ""}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection("comments");
+                }}
               >
                 Comments
               </a>
@@ -217,26 +274,56 @@ const App = () => {
         </div>
         <AnimatePresence>
           {isMenuOpen && (
-            <motion.nav 
+            <motion.nav
               className="nav-mobile"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
-              <a href="#hero" onClick={(e) => { e.preventDefault(); scrollToSection("hero"); }}>
+              <a
+                href="#hero"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection("hero");
+                }}
+              >
                 Home
               </a>
-              <a href="#features" onClick={(e) => { e.preventDefault(); scrollToSection("features"); }}>
+              <a
+                href="#features"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection("features");
+                }}
+              >
                 Features
               </a>
-              <a href="#screenshots" onClick={(e) => { e.preventDefault(); scrollToSection("screenshots"); }}>
+              <a
+                href="#screenshots"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection("screenshots");
+                }}
+              >
                 Screenshots
               </a>
-              <a href="#download" onClick={(e) => { e.preventDefault(); scrollToSection("download"); }}>
+              <a
+                href="#download"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection("download");
+                }}
+              >
                 Download
               </a>
-              <a href="#comments" onClick={(e) => { e.preventDefault(); scrollToSection("comments"); }}>
+              <a
+                href="#comments"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection("comments");
+                }}
+              >
                 Comments
               </a>
             </motion.nav>
@@ -248,13 +335,15 @@ const App = () => {
         <section ref={sectionRefs.hero} id="hero" className="hero">
           <div className="hero-overlay"></div>
           <div className="hero-content">
-            <motion.div 
+            <motion.div
               className="hero-text"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h2 className="hero-tagline">Every reflection looks familiar —until it blinks.</h2>
+              <h2 className="hero-tagline">
+                Every reflection looks familiar —until it blinks.
+              </h2>
               <div className="rating">
                 <FaStar className="star" />
                 <FaStar className="star" />
@@ -263,14 +352,16 @@ const App = () => {
                 <FaStarHalfAlt className="star" />
                 <span className="rating-count">(254 ratings)</span>
               </div>
-              <p className="game-type">A psychological horror experience for Windows</p>
+              <p className="game-type">
+                A psychological horror experience for Windows
+              </p>
               <div className="content-warning">
                 <FaExclamationTriangle className="warning-icon" />
                 <span>This game contains disturbing content</span>
               </div>
             </motion.div>
-            
-            <motion.div 
+
+            <motion.div
               className="trailer-container"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -286,29 +377,43 @@ const App = () => {
                 ></iframe>
               </div>
               <div className="cta-buttons">
-                <a href="#download" className="btn btn-primary" onClick={(e) => { e.preventDefault(); scrollToSection("download"); }}>
+                <a
+                  href="#download"
+                  className="btn btn-primary"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection("download");
+                  }}
+                >
                   <FaDownload /> Download Now
                 </a>
                 <p className="price-info">Name your own price</p>
               </div>
             </motion.div>
           </div>
-          
-          <div className="scroll-indicator" onClick={() => scrollToSection("features")}>
+
+          <div
+            className="scroll-indicator"
+            onClick={() => scrollToSection("features")}
+          >
             <span>Discover More</span>
             <FaChevronDown className="scroll-arrow" />
           </div>
         </section>
 
-        <section ref={sectionRefs.features} id="features" className="features-section">
+        <section
+          ref={sectionRefs.features}
+          id="features"
+          className="features-section"
+        >
           <div className="container">
             <div className="section-header">
               <h2>About the Game</h2>
               <div className="section-divider"></div>
             </div>
-            
+
             <div className="features-grid">
-              <motion.div 
+              <motion.div
                 className="feature-text"
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -316,30 +421,42 @@ const App = () => {
                 transition={{ duration: 0.6 }}
               >
                 <div className="feature-quote">
-                  <p>The incidents require you to move out.<br/>Let's start unpacking stuff and cozy up our new abode!</p>
+                  <p>
+                    The incidents require you to move out.
+                    <br />
+                    Let's start unpacking stuff and cozy up our new abode!
+                  </p>
                 </div>
                 <p className="feature-description">
-                  <strong>Abodtion</strong> is a short first-person psychological game about what remains when something is lost before it begins.
+                  <strong>Abodtion</strong> is a short first-person
+                  psychological game about what remains when something is lost
+                  before it begins.
                 </p>
                 <p className="feature-description">
-                  Every action feels normal —until it doesn't.<br/>
-                  Every reflection looks familiar —until it blinks.<br/>
+                  Every action feels normal —until it doesn't.
+                  <br />
+                  Every reflection looks familiar —until it blinks.
+                  <br />
                   Every sound is real —even if no one is there.
                 </p>
               </motion.div>
-              
-              <motion.div 
+
+              <motion.div
                 className="feature-image"
                 initial={{ opacity: 0, x: 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                <img src={shuffledThumbnails[0] || "/placeholder.svg"} alt="Game Screenshot" className="feature-img" />
+                <img
+                  src={staticImages.feature1 || "/placeholder.svg"}
+                  alt="Game Screenshot"
+                  className="feature-img"
+                />
               </motion.div>
             </div>
-            
-            <motion.div 
+
+            <motion.div
               className="feature-quote-block"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -347,24 +464,30 @@ const App = () => {
               transition={{ duration: 0.6 }}
             >
               <blockquote>
-                unpack the past<br/>
-                reheat what's left<br/>
+                unpack the past
+                <br />
+                reheat what's left
+                <br />
                 live with the echo
               </blockquote>
             </motion.div>
-            
+
             <div className="features-grid reverse">
-              <motion.div 
+              <motion.div
                 className="feature-image"
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                <img src={shuffledThumbnails[1] || "/placeholder.svg"} alt="Game Screenshot" className="feature-img" />
+                <img
+                  src={staticImages.feature2 || "/placeholder.svg"}
+                  alt="Game Screenshot"
+                  className="feature-img"
+                />
               </motion.div>
-              
-              <motion.div 
+
+              <motion.div
                 className="feature-text"
                 initial={{ opacity: 0, x: 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -373,13 +496,28 @@ const App = () => {
               >
                 <h3>Key Features</h3>
                 <ul className="feature-list">
-                  <li><span className="feature-icon">🏠</span> Home objects as emotional triggers</li>
-                  <li><span className="feature-icon">🔄</span> Microwave as narrative core</li>
-                  <li><span className="feature-icon">⏱️</span> ~15 minutes playtime</li>
-                  <li><span className="feature-icon">🎮</span> Immersive first-person experience</li>
-                  <li><span className="feature-icon">🔊</span> Atmospheric sound design</li>
+                  <li>
+                    <span className="feature-icon">🏠</span> Home objects as
+                    emotional triggers
+                  </li>
+                  <li>
+                    <span className="feature-icon">🔄</span> Microwave as
+                    narrative core
+                  </li>
+                  <li>
+                    <span className="feature-icon">⏱️</span> ~15 minutes
+                    playtime
+                  </li>
+                  <li>
+                    <span className="feature-icon">🎮</span> Immersive
+                    first-person experience
+                  </li>
+                  <li>
+                    <span className="feature-icon">🔊</span> Atmospheric sound
+                    design
+                  </li>
                 </ul>
-                
+
                 <h3>Controls</h3>
                 <div className="controls-grid">
                   <div className="control-item">
@@ -405,8 +543,8 @@ const App = () => {
                 </div>
               </motion.div>
             </div>
-            
-            <motion.div 
+
+            <motion.div
               className="credits-section"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -430,7 +568,7 @@ const App = () => {
                   </div>
                 </div>
               </div>
-              
+
               <div className="warning-box">
                 <div className="warning-icon-container">
                   <FaExclamationTriangle className="warning-icon-large" />
@@ -438,14 +576,15 @@ const App = () => {
                 <div className="warning-content">
                   <h4>Content Warning</h4>
                   <p>
-                    This game is not suitable for children<br/>
+                    This game is not suitable for children
+                    <br />
                     or those who are easily disturbed.
                   </p>
                 </div>
               </div>
             </motion.div>
-            
-            <motion.div 
+
+            <motion.div
               className="game-details-section"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -458,10 +597,10 @@ const App = () => {
                   {isDetailsOpen ? <FaChevronUp /> : <FaChevronDown />}
                 </span>
               </button>
-              
+
               <AnimatePresence>
                 {isDetailsOpen && (
-                  <motion.div 
+                  <motion.div
                     className="details-panel"
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: "auto" }}
@@ -504,7 +643,9 @@ const App = () => {
                       </div>
                       <div className="detail-item">
                         <div className="detail-label">Genre</div>
-                        <div className="detail-value">Adventure, Simulation</div>
+                        <div className="detail-value">
+                          Adventure, Simulation
+                        </div>
                       </div>
                       <div className="detail-item">
                         <div className="detail-label">Tags</div>
@@ -534,23 +675,45 @@ const App = () => {
                       </div>
                       <div className="detail-item">
                         <div className="detail-label">Accessibility</div>
-                        <div className="detail-value">Subtitles, Interactive tutorial</div>
+                        <div className="detail-value">
+                          Subtitles, Interactive tutorial
+                        </div>
                       </div>
                     </div>
-                    
+
                     <div className="social-links-container">
                       <h4>Follow Us</h4>
                       <div className="social-links">
-                        <a href="https://store.steampowered.com" target="_blank" rel="noopener noreferrer" className="social-link">
+                        <a
+                          href="https://store.steampowered.com"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="social-link"
+                        >
                           <FaSteam /> Steam
                         </a>
-                        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="social-link">
+                        <a
+                          href="https://twitter.com"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="social-link"
+                        >
                           <FaTwitter /> Twitter
                         </a>
-                        <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="social-link">
+                        <a
+                          href="https://youtube.com"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="social-link"
+                        >
                           <FaYoutube /> YouTube
                         </a>
-                        <a href="https://discord.com" target="_blank" rel="noopener noreferrer" className="social-link">
+                        <a
+                          href="https://discord.com"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="social-link"
+                        >
                           <FaDiscord /> Discord
                         </a>
                       </div>
@@ -562,17 +725,21 @@ const App = () => {
           </div>
         </section>
 
-        <section ref={sectionRefs.screenshots} id="screenshots" className="screenshots-section">
+        <section
+          ref={sectionRefs.screenshots}
+          id="screenshots"
+          className="screenshots-section"
+        >
           <div className="container">
             <div className="section-header">
               <h2>Screenshots</h2>
               <div className="section-divider"></div>
             </div>
-            
+
             <div className="screenshots-grid">
               {featuredScreenshots.map((screenshot, index) => (
-                <motion.div 
-                  key={index} 
+                <motion.div
+                  key={index}
                   className="screenshot-item"
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -583,27 +750,38 @@ const App = () => {
                   <div className="screenshot-overlay">
                     <FaPlay className="view-icon" />
                   </div>
-                  <img src={screenshot || "/placeholder.svg"} alt={`Game Screenshot ${index + 1}`} className="screenshot-img" />
+                  <img
+                    src={screenshot || "/placeholder.svg"}
+                    alt={`Game Screenshot ${index + 1}`}
+                    className="screenshot-img"
+                  />
                 </motion.div>
               ))}
             </div>
-            
+
             <div className="view-all-container">
-              <button className="btn" onClick={() => openGallery(galleryScreenshots[0])}>
+              <button
+                className="btn"
+                onClick={() => openGallery(galleryScreenshots[0])}
+              >
                 View All Screenshots
               </button>
             </div>
           </div>
         </section>
 
-        <section ref={sectionRefs.download} id="download" className="download-section">
+        <section
+          ref={sectionRefs.download}
+          id="download"
+          className="download-section"
+        >
           <div className="container">
             <div className="section-header">
               <h2>Download Now</h2>
               <div className="section-divider"></div>
             </div>
-            
-            <motion.div 
+
+            <motion.div
               className="download-card"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -629,12 +807,16 @@ const App = () => {
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="download-image">
-                  <img src={shuffledThumbnails[2] || "/placeholder.svg"} alt="Game Screenshot" className="download-img" />
+                  <img
+                    src={staticImages.download || "/placeholder.svg"}
+                    alt="Game Screenshot"
+                    className="download-img"
+                  />
                 </div>
               </div>
-              
+
               <div className="download-actions">
                 <a href="#" className="btn btn-primary btn-large">
                   <FaDownload /> Download Now
@@ -651,8 +833,8 @@ const App = () => {
                 </div>
               </div>
             </motion.div>
-            
-            <motion.div 
+
+            <motion.div
               className="devlog-section"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -663,29 +845,43 @@ const App = () => {
               <div className="devlog-grid">
                 <div className="devlog-item">
                   <div className="devlog-image">
-                    <img src={shuffledThumbnails[3] || "/placeholder.svg"} alt="Update Screenshot" />
+                    <img
+                      src={staticImages.devlog1 || "/placeholder.svg"}
+                      alt="Update Screenshot"
+                    />
                   </div>
                   <div className="devlog-content">
                     <h4>Abodtion v1.2 fixes &amp; New Trailer</h4>
                     <p className="devlog-date">21 days ago</p>
                     <p className="devlog-excerpt">
-                      We've fixed several bugs reported by the community and released a brand new trailer showcasing the atmospheric horror elements...
+                      We've fixed several bugs reported by the community and
+                      released a brand new trailer showcasing the atmospheric
+                      horror elements...
                     </p>
-                    <a href="#" className="devlog-link">Read More</a>
+                    <a href="#" className="devlog-link">
+                      Read More
+                    </a>
                   </div>
                 </div>
-                
+
                 <div className="devlog-item">
                   <div className="devlog-image">
-                    <img src={shuffledThumbnails[4] || "/placeholder.svg"} alt="Update Screenshot" />
+                    <img
+                      src={staticImages.devlog2 || "/placeholder.svg"}
+                      alt="Update Screenshot"
+                    />
                   </div>
                   <div className="devlog-content">
                     <h4>Abodtion — Devlog v1.1</h4>
                     <p className="devlog-date">26 days ago</p>
                     <p className="devlog-excerpt">
-                      Our first major update is here! We've improved performance, added new interactive elements, and enhanced the sound design...
+                      Our first major update is here! We've improved
+                      performance, added new interactive elements, and enhanced
+                      the sound design...
                     </p>
-                    <a href="#" className="devlog-link">Read More</a>
+                    <a href="#" className="devlog-link">
+                      Read More
+                    </a>
                   </div>
                 </div>
               </div>
@@ -693,15 +889,19 @@ const App = () => {
           </div>
         </section>
 
-        <section ref={sectionRefs.comments} id="comments" className="comments-section">
+        <section
+          ref={sectionRefs.comments}
+          id="comments"
+          className="comments-section"
+        >
           <div className="container">
             <div className="section-header">
               <h2>Player Feedback</h2>
               <div className="section-divider"></div>
             </div>
-            
+
             <div className="comments-container">
-              <motion.div 
+              <motion.div
                 className="comment-card"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -726,8 +926,8 @@ const App = () => {
                   </button>
                 </div>
               </motion.div>
-              
-              <motion.div 
+
+              <motion.div
                 className="comment-card featured"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -745,10 +945,18 @@ const App = () => {
                 </div>
                 <div className="comment-body">
                   <p>
-                    Really dark game assuming it is indeed about an aborted baby or a miscarriage or something of the like. I thought it was well pieced together for a short horror game!
+                    Really dark game assuming it is indeed about an aborted baby
+                    or a miscarriage or something of the like. I thought it was
+                    well pieced together for a short horror game!
                   </p>
-                  <div className="comment-media" onClick={() => openGallery(shuffledThumbnails[5])}>
-                    <img src={shuffledThumbnails[5] || "/placeholder.svg"} alt="Comment Media" />
+                  <div
+                    className="comment-media"
+                    onClick={() => openGallery(staticImages.comment1)}
+                  >
+                    <img
+                      src={staticImages.comment1 || "/placeholder.svg"}
+                      alt="Comment Media"
+                    />
                     <div className="media-overlay">
                       <FaPlay className="play-icon" />
                     </div>
@@ -760,8 +968,8 @@ const App = () => {
                   </button>
                 </div>
               </motion.div>
-              
-              <motion.div 
+
+              <motion.div
                 className="comment-card"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -779,10 +987,17 @@ const App = () => {
                 </div>
                 <div className="comment-body">
                   <p>
-                    interesting game! i definitely got scared a few times lol. thanks korogames!
+                    interesting game! i definitely got scared a few times lol.
+                    thanks korogames!
                   </p>
-                  <div className="comment-media" onClick={() => openGallery(shuffledThumbnails[6])}>
-                    <img src={shuffledThumbnails[6] || "/placeholder.svg"} alt="Comment Media" />
+                  <div
+                    className="comment-media"
+                    onClick={() => openGallery(staticImages.comment2)}
+                  >
+                    <img
+                      src={staticImages.comment2 || "/placeholder.svg"}
+                      alt="Comment Media"
+                    />
                     <div className="media-overlay">
                       <FaPlay className="play-icon" />
                     </div>
@@ -795,7 +1010,7 @@ const App = () => {
                 </div>
               </motion.div>
             </div>
-            
+
             <div className="comments-pagination">
               <div className="pagination-info">
                 Viewing most recent comments 1 to 3 of 202
@@ -805,7 +1020,7 @@ const App = () => {
                 <button className="pagination-btn">Last Page</button>
               </div>
             </div>
-            
+
             <div className="add-comment">
               <button className="btn btn-secondary">
                 Log in to leave a comment
@@ -813,10 +1028,10 @@ const App = () => {
             </div>
           </div>
         </section>
-        
+
         <section className="cta-section">
           <div className="container">
-            <motion.div 
+            <motion.div
               className="cta-container"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -825,18 +1040,34 @@ const App = () => {
             >
               <div className="cta-content">
                 <h2>Ready to Experience the Horror?</h2>
-                <p>Download Abodtion now and uncover what remains when something is lost before it begins.</p>
+                <p>
+                  Download Abodtion now and uncover what remains when something
+                  is lost before it begins.
+                </p>
               </div>
               <div className="cta-actions">
-                <a href="#download" className="btn btn-primary btn-large" onClick={(e) => { e.preventDefault(); scrollToSection("download"); }}>
+                <a
+                  href="#download"
+                  className="btn btn-primary btn-large"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection("download");
+                  }}
+                >
                   <FaDownload /> Download Now
                 </a>
                 <div className="social-share">
                   <span>Share:</span>
                   <div className="share-buttons">
-                    <button className="share-btn"><FaTwitter /></button>
-                    <button className="share-btn"><FaDiscord /></button>
-                    <button className="share-btn"><FaSteam /></button>
+                    <button className="share-btn">
+                      <FaTwitter />
+                    </button>
+                    <button className="share-btn">
+                      <FaDiscord />
+                    </button>
+                    <button className="share-btn">
+                      <FaSteam />
+                    </button>
                   </div>
                 </div>
               </div>
@@ -850,46 +1081,81 @@ const App = () => {
           <div className="footer-grid">
             <div className="footer-brand">
               <div className="footer-logo">
-                <img src={logoText || "/placeholder.svg"} alt="Logo" className="footer-logo-img" />
+                <img
+                  src={logoText || "/placeholder.svg"}
+                  alt="Logo"
+                  className="footer-logo-img"
+                />
                 <span>koro.games</span>
               </div>
-              <p className="footer-tagline">Creating unforgettable psychological experiences</p>
+              <p className="footer-tagline">
+                Creating unforgettable psychological experiences
+              </p>
             </div>
-            
+
             <div className="footer-links">
               <h4>Links</h4>
               <ul>
-                <li><a href="#">View all games</a></li>
-                <li><a href="#">About us</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="#">Report an issue</a></li>
+                <li>
+                  <a href="#">View all games</a>
+                </li>
+                <li>
+                  <a href="#">About us</a>
+                </li>
+                <li>
+                  <a href="#">Contact</a>
+                </li>
+                <li>
+                  <a href="#">Report an issue</a>
+                </li>
               </ul>
             </div>
-            
+
             <div className="footer-social">
               <h4>Follow Us</h4>
               <div className="footer-social-links">
-                <a href="https://store.steampowered.com" target="_blank" rel="noopener noreferrer" className="footer-social-link">
+                <a
+                  href="https://store.steampowered.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="footer-social-link"
+                >
                   <FaSteam />
                 </a>
-                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="footer-social-link">
+                <a
+                  href="https://twitter.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="footer-social-link"
+                >
                   <FaTwitter />
                 </a>
-                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="footer-social-link">
+                <a
+                  href="https://youtube.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="footer-social-link"
+                >
                   <FaYoutube />
                 </a>
-                <a href="https://discord.com" target="_blank" rel="noopener noreferrer" className="footer-social-link">
+                <a
+                  href="https://discord.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="footer-social-link"
+                >
                   <FaDiscord />
                 </a>
               </div>
             </div>
           </div>
-          
+
           <div className="footer-bottom">
             <div className="footer-info">
               <div className="update-time">Updated 1 day ago</div>
               <div className="copyright">
-                &copy; {new Date().getFullYear()} koro.games. All rights reserved.
+                &copy; {new Date().getFullYear()} koro.games. All rights
+                reserved.
               </div>
             </div>
           </div>
@@ -905,7 +1171,11 @@ const App = () => {
               <BiX size={24} />
             </button>
             <div className="gallery-image-container">
-              <img src={selectedImage || "/placeholder.svg"} alt="Gallery Image" className="gallery-image" />
+              <img
+                src={selectedImage || "/placeholder.svg"}
+                alt="Gallery Image"
+                className="gallery-image"
+              />
             </div>
             <div className="gallery-controls">
               <button className="gallery-nav gallery-prev" onClick={prevImage}>
