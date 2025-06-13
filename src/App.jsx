@@ -547,28 +547,215 @@ const App = () => {
                 </ul>
 
                 <h3>Controls</h3>
-                <div className="controls-grid">
-                  <div className="control-item">
-                    <div className="control-key">WASD</div>
-                    <div className="control-action">move</div>
-                  </div>
-                  <div className="control-item">
-                    <div className="control-key">Ctrl</div>
-                    <div className="control-action">crouch</div>
-                  </div>
-                  <div className="control-item">
-                    <div className="control-key">LMB / RMB</div>
-                    <div className="control-action">grab objects</div>
-                  </div>
-                  <div className="control-item">
-                    <div className="control-key">E</div>
-                    <div className="control-action">interact</div>
-                  </div>
-                  <div className="control-item">
-                    <div className="control-key">Esc</div>
-                    <div className="control-action">pause</div>
-                  </div>
+                <div className="controls-table-container">
+                  <table className="controls-table">
+                    <thead>
+                      <tr>
+                        <th
+                          style={{
+                            padding: "12px 20px",
+                            borderBottom: "2px solid rgba(255,255,255,0.1)",
+                          }}
+                        >
+                          Key
+                        </th>
+                        <th
+                          style={{
+                            padding: "12px 20px",
+                            borderBottom: "2px solid rgba(255,255,255,0.1)",
+                          }}
+                        >
+                          Action
+                        </th>
+                        <th
+                          style={{
+                            padding: "12px 20px",
+                            borderBottom: "2px solid rgba(255,255,255,0.1)",
+                          }}
+                        >
+                          Description
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        style={{
+                          borderBottom: "1px solid rgba(255,255,255,0.05)",
+                        }}
+                      >
+                        <td
+                          className="key-cell"
+                          style={{ padding: "12px 20px" }}
+                        >
+                          <span className="key-badge">W</span>
+                          <span className="key-badge">A</span>
+                          <span className="key-badge">S</span>
+                          <span className="key-badge">D</span>
+                        </td>
+                        <td style={{ padding: "12px 20px" }}>Movement</td>
+                        <td style={{ padding: "12px 20px" }}>
+                          Move character in all directions
+                        </td>
+                      </tr>
+                      <tr
+                        style={{
+                          borderBottom: "1px solid rgba(255,255,255,0.05)",
+                        }}
+                      >
+                        <td
+                          className="key-cell"
+                          style={{ padding: "12px 20px" }}
+                        >
+                          <span className="key-badge">Ctrl</span>
+                        </td>
+                        <td style={{ padding: "12px 20px" }}>Crouch</td>
+                        <td style={{ padding: "12px 20px" }}>
+                          Lower your profile to hide
+                        </td>
+                      </tr>
+                      <tr
+                        style={{
+                          borderBottom: "1px solid rgba(255,255,255,0.05)",
+                        }}
+                      >
+                        <td
+                          className="key-cell"
+                          style={{ padding: "12px 20px" }}
+                        >
+                          <span className="key-badge mouse">LMB</span>
+                          <span className="key-badge mouse">RMB</span>
+                        </td>
+                        <td style={{ padding: "12px 20px" }}>Grab Objects</td>
+                        <td style={{ padding: "12px 20px" }}>
+                          Left click to grab, right click to examine
+                        </td>
+                      </tr>
+                      <tr
+                        style={{
+                          borderBottom: "1px solid rgba(255,255,255,0.05)",
+                        }}
+                      >
+                        <td
+                          className="key-cell"
+                          style={{ padding: "12px 20px" }}
+                        >
+                          <span className="key-badge">E</span>
+                        </td>
+                        <td style={{ padding: "12px 20px" }}>Interact</td>
+                        <td style={{ padding: "12px 20px" }}>
+                          Interact with objects and doors
+                        </td>
+                      </tr>
+                      <tr
+                        style={{
+                          borderBottom: "1px solid rgba(255,255,255,0.05)",
+                        }}
+                      >
+                        <td
+                          className="key-cell"
+                          style={{ padding: "12px 20px" }}
+                        >
+                          <span className="key-badge">Esc</span>
+                        </td>
+                        <td style={{ padding: "12px 20px" }}>Pause</td>
+                        <td style={{ padding: "12px 20px" }}>
+                          Open pause menu
+                        </td>
+                      </tr>
+                      <tr
+                        style={{
+                          borderBottom: "1px solid rgba(255,255,255,0.05)",
+                        }}
+                      >
+                        <td
+                          className="key-cell"
+                          style={{ padding: "12px 20px" }}
+                        >
+                          <span className="key-badge">Shift</span>
+                        </td>
+                        <td style={{ padding: "12px 20px" }}>Run</td>
+                        <td style={{ padding: "12px 20px" }}>
+                          Move faster (hold)
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
+
+                <style jsx>{`
+                  .controls-table-container {
+                    width: 100%;
+                    overflow-x: auto;
+                    margin: 20px 0;
+                    border-radius: 8px;
+                    background: rgba(255, 255, 255, 0.03);
+                  }
+
+                  .controls-table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    font-size: 0.95rem;
+                  }
+
+                  .key-cell {
+                    display: flex;
+                    gap: 8px;
+                    align-items: center;
+                  }
+
+                  .key-badge {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    min-width: 32px;
+                    height: 32px;
+                    padding: 0 8px;
+                    background: rgba(255, 255, 255, 0.1);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    border-radius: 4px;
+                    font-family: monospace;
+                    font-size: 0.9rem;
+                    color: #fff;
+                  }
+
+                  .key-badge.mouse {
+                    background: rgba(255, 255, 255, 0.15);
+                  }
+
+                  @media (max-width: 768px) {
+                    .controls-table {
+                      font-size: 0.85rem;
+                    }
+
+                    .key-badge {
+                      min-width: 28px;
+                      height: 28px;
+                      font-size: 0.8rem;
+                    }
+
+                    .controls-table th,
+                    .controls-table td {
+                      padding: 10px 15px !important;
+                    }
+                  }
+
+                  @media (max-width: 480px) {
+                    .controls-table {
+                      font-size: 0.8rem;
+                    }
+
+                    .key-badge {
+                      min-width: 24px;
+                      height: 24px;
+                      font-size: 0.75rem;
+                    }
+
+                    .controls-table th,
+                    .controls-table td {
+                      padding: 8px 12px !important;
+                    }
+                  }
+                `}</style>
               </motion.div>
             </div>
 
@@ -856,7 +1043,7 @@ const App = () => {
                 {/* <a href="#" className="btn btn-primary btn-large">
                   <FaDownload /> Download Now
                 </a> */}
-                <div className="price-container">
+                {/* <div className="price-container">
                   <p className="price-info">Name your own price</p>
                   <div className="price-options">
                     <button className="price-option">$0</button>
@@ -865,7 +1052,7 @@ const App = () => {
                     <button className="price-option">$15</button>
                     <button className="price-option">Custom</button>
                   </div>
-                </div>
+                </div> */}
               </div>
             </motion.div>
 
@@ -929,7 +1116,7 @@ const App = () => {
           id="comments"
           className="comments-section"
         >
-          <div className="container">
+          {/* <div className="container">
             <div className="section-header">
               <h2>Player Feedback</h2>
               <div className="section-divider"></div>
@@ -1061,7 +1248,7 @@ const App = () => {
                 Log in to leave a comment
               </button>
             </div>
-          </div>
+          </div> */}
         </section>
 
         <section className="cta-section">
@@ -1073,13 +1260,13 @@ const App = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              {/* <div className="cta-content">
+              <div className="cta-content">
                 <h2>Ready to Experience the Horror?</h2>
                 <p>
                   Download Abodtion now and uncover what remains when something
                   is lost before it begins.
                 </p>
-              </div> */}
+              </div>
               {/* <div className="cta-actions">
                 <a
                   href="#download"
