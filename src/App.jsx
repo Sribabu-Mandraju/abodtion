@@ -1073,13 +1073,13 @@ const App = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <div className="cta-content">
+              {/* <div className="cta-content">
                 <h2>Ready to Experience the Horror?</h2>
                 <p>
                   Download Abodtion now and uncover what remains when something
                   is lost before it begins.
                 </p>
-              </div>
+              </div> */}
               {/* <div className="cta-actions">
                 <a
                   href="#download"
