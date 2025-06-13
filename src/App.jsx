@@ -207,7 +207,7 @@ const App = () => {
               alt="Game Logo"
               className="logo"
             />
-            <h1 className="game-title">Abodtion</h1>
+            {/* <h1 className="game-title">Abodtion</h1> */}
           </div>
           {isMobile ? (
             <button
