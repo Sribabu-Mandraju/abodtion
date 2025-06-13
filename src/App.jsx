@@ -586,14 +586,23 @@ const App = () => {
                         <td
                           className="key-cell"
                           style={{ padding: "12px 20px" }}
+                          data-label="Key"
                         >
                           <span className="key-badge">W</span>
                           <span className="key-badge">A</span>
                           <span className="key-badge">S</span>
                           <span className="key-badge">D</span>
                         </td>
-                        <td style={{ padding: "12px 20px" }}>Movement</td>
-                        <td style={{ padding: "12px 20px" }}>
+                        <td
+                          style={{ padding: "12px 20px" }}
+                          data-label="Action"
+                        >
+                          Movement
+                        </td>
+                        <td
+                          style={{ padding: "12px 20px" }}
+                          data-label="Description"
+                        >
                           Move character in all directions
                         </td>
                       </tr>
@@ -605,11 +614,20 @@ const App = () => {
                         <td
                           className="key-cell"
                           style={{ padding: "12px 20px" }}
+                          data-label="Key"
                         >
                           <span className="key-badge">Ctrl</span>
                         </td>
-                        <td style={{ padding: "12px 20px" }}>Crouch</td>
-                        <td style={{ padding: "12px 20px" }}>
+                        <td
+                          style={{ padding: "12px 20px" }}
+                          data-label="Action"
+                        >
+                          Crouch
+                        </td>
+                        <td
+                          style={{ padding: "12px 20px" }}
+                          data-label="Description"
+                        >
                           Lower your profile to hide
                         </td>
                       </tr>
@@ -621,12 +639,21 @@ const App = () => {
                         <td
                           className="key-cell"
                           style={{ padding: "12px 20px" }}
+                          data-label="Key"
                         >
                           <span className="key-badge mouse">LMB</span>
                           <span className="key-badge mouse">RMB</span>
                         </td>
-                        <td style={{ padding: "12px 20px" }}>Grab Objects</td>
-                        <td style={{ padding: "12px 20px" }}>
+                        <td
+                          style={{ padding: "12px 20px" }}
+                          data-label="Action"
+                        >
+                          Grab Objects
+                        </td>
+                        <td
+                          style={{ padding: "12px 20px" }}
+                          data-label="Description"
+                        >
                           Left click to grab, right click to examine
                         </td>
                       </tr>
@@ -638,11 +665,20 @@ const App = () => {
                         <td
                           className="key-cell"
                           style={{ padding: "12px 20px" }}
+                          data-label="Key"
                         >
                           <span className="key-badge">E</span>
                         </td>
-                        <td style={{ padding: "12px 20px" }}>Interact</td>
-                        <td style={{ padding: "12px 20px" }}>
+                        <td
+                          style={{ padding: "12px 20px" }}
+                          data-label="Action"
+                        >
+                          Interact
+                        </td>
+                        <td
+                          style={{ padding: "12px 20px" }}
+                          data-label="Description"
+                        >
                           Interact with objects and doors
                         </td>
                       </tr>
@@ -654,11 +690,20 @@ const App = () => {
                         <td
                           className="key-cell"
                           style={{ padding: "12px 20px" }}
+                          data-label="Key"
                         >
                           <span className="key-badge">Esc</span>
                         </td>
-                        <td style={{ padding: "12px 20px" }}>Pause</td>
-                        <td style={{ padding: "12px 20px" }}>
+                        <td
+                          style={{ padding: "12px 20px" }}
+                          data-label="Action"
+                        >
+                          Pause
+                        </td>
+                        <td
+                          style={{ padding: "12px 20px" }}
+                          data-label="Description"
+                        >
                           Open pause menu
                         </td>
                       </tr>
@@ -670,11 +715,20 @@ const App = () => {
                         <td
                           className="key-cell"
                           style={{ padding: "12px 20px" }}
+                          data-label="Key"
                         >
                           <span className="key-badge">Shift</span>
                         </td>
-                        <td style={{ padding: "12px 20px" }}>Run</td>
-                        <td style={{ padding: "12px 20px" }}>
+                        <td
+                          style={{ padding: "12px 20px" }}
+                          data-label="Action"
+                        >
+                          Run
+                        </td>
+                        <td
+                          style={{ padding: "12px 20px" }}
+                          data-label="Description"
+                        >
                           Move faster (hold)
                         </td>
                       </tr>
@@ -685,7 +739,6 @@ const App = () => {
                 <style jsx>{`
                   .controls-table-container {
                     width: 100%;
-                    overflow-x: auto;
                     margin: 20px 0;
                     border-radius: 8px;
                     background: rgba(255, 255, 255, 0.03);
@@ -723,8 +776,44 @@ const App = () => {
                   }
 
                   @media (max-width: 768px) {
-                    .controls-table {
-                      font-size: 0.85rem;
+                    .controls-table thead {
+                      display: none;
+                    }
+
+                    .controls-table,
+                    .controls-table tbody,
+                    .controls-table tr,
+                    .controls-table td {
+                      display: block;
+                      width: 100%;
+                    }
+
+                    .controls-table tr {
+                      margin-bottom: 15px;
+                      border: 1px solid rgba(255, 255, 255, 0.1);
+                      border-radius: 8px;
+                      background: rgba(255, 255, 255, 0.02);
+                    }
+
+                    .controls-table td {
+                      text-align: right;
+                      padding: 12px 15px;
+                      position: relative;
+                      padding-left: 50%;
+                    }
+
+                    .controls-table td::before {
+                      content: attr(data-label);
+                      position: absolute;
+                      left: 15px;
+                      width: 45%;
+                      text-align: left;
+                      font-weight: bold;
+                      color: rgba(255, 255, 255, 0.7);
+                    }
+
+                    .key-cell {
+                      justify-content: flex-end;
                     }
 
                     .key-badge {
@@ -732,27 +821,23 @@ const App = () => {
                       height: 28px;
                       font-size: 0.8rem;
                     }
-
-                    .controls-table th,
-                    .controls-table td {
-                      padding: 10px 15px !important;
-                    }
                   }
 
                   @media (max-width: 480px) {
-                    .controls-table {
-                      font-size: 0.8rem;
+                    .controls-table td {
+                      padding: 10px 12px;
+                      padding-left: 45%;
+                    }
+
+                    .controls-table td::before {
+                      width: 40%;
+                      font-size: 0.85rem;
                     }
 
                     .key-badge {
                       min-width: 24px;
                       height: 24px;
                       font-size: 0.75rem;
-                    }
-
-                    .controls-table th,
-                    .controls-table td {
-                      padding: 8px 12px !important;
                     }
                   }
                 `}</style>
