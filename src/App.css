@@ -158,11 +158,11 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(
+  /* background: linear-gradient(
     135deg,
     rgba(0, 0, 0, 0.95) 0%,
     rgba(20, 0, 0, 0.9) 100%
-  );
+  ); */
   overflow: hidden;
 }
 
@@ -173,7 +173,7 @@ img {
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(
+  /* background: radial-gradient(
       circle at 20% 50%,
       rgba(250, 92, 92, 0.15) 0%,
       transparent 50%
@@ -182,7 +182,7 @@ img {
       circle at 80% 50%,
       rgba(250, 92, 92, 0.15) 0%,
       transparent 50%
-    );
+    ); */
   z-index: 1;
 }
 
